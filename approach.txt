@@ -1,0 +1,53 @@
+# My Approach to Multi-Agent Customer Support Ticket Analyzer
+
+## The Problem I Solved
+
+Customer support teams get overwhelmed with tickets and often struggle to prioritize them correctly. A single AI system trying to handle priority, categorization, customer value assessment, and routing all at once tends to make mistakes or miss important nuances. I needed a smarter way to analyze support tickets that could handle the complexity while being transparent about its decisions.
+
+## Why I Chose Multiple Agents
+
+Instead of building one big AI that tries to do everything, I broke the problem into specialized pieces. Each agent focuses on a specific aspect of ticket analysis:
+
+- **Priority Agent**: Determines how urgent something is based on business impact
+- **Category Agent**: Identifies what type of problem this is and where it should go
+- **Customer Value Agent**: Assesses which customers are most important to the business
+- **Sentiment Agent**: Analyzes the emotional tone and frustration level in the message
+- **Routing Coordinator**: Takes all the input and makes the final routing decision
+
+## How It Actually Works
+
+1. **Parallel Analysis**: When a ticket comes in, all four specialist agents look at it simultaneously. This is faster than having them work one after another.
+
+2. **Each Agent Does Their Thing**: 
+   - Priority agent asks: "Is this breaking their business?"
+   - Category agent asks: "What kind of problem is this?"
+   - Value agent asks: "How important is this customer to us?"
+   - Sentiment agent asks: "How upset/frustrated are they?"
+
+3. **The Coordinator Decides**: The coordinator takes all their recommendations and applies business rules. For example, if it's a security issue, it goes to the security team regardless of what other agents think.
+
+## Why This Approach Works Better
+
+**Specialization**: Each agent can focus on getting really good at one thing instead of being mediocre at everything.
+
+**Transparency**: When the system makes a decision, I can see exactly why. If the priority seems wrong, I can look at just the priority agent's reasoning.
+
+**Conflict Resolution**: Sometimes agents disagree - maybe something seems low priority but the customer is really upset. The coordinator has rules for handling these conflicts.
+
+**Easy to Improve**: If I want better sentiment analysis, I only need to work on that one agent without breaking everything else.
+
+## Real Example
+
+Here's how it handled an angry free-tier customer:
+- **Priority Agent**: "Low priority - free customer, login issue"
+- **Sentiment Agent**: "High negative sentiment - very frustrated"
+- **Value Agent**: "Low value but new customer - retention opportunity"
+- **Coordinator**: "Upgrade to medium priority due to sentiment and retention risk"
+
+The single-agent approach might have just seen "free customer with login issue" and marked it low priority. But the multi-agent system caught the emotional context and business opportunity.
+
+## The Technical Implementation
+
+I used PydanticAI with Google's Gemini model, with each agent having its own specialized prompt and structured output format. The system handles rate limiting and runs agents in parallel for speed. I also built in evaluation metrics to measure how well the agents work together.
+
+The whole thing is designed to be practical - it gives clear routing decisions with time estimates and explains its reasoning in plain English so support teams can trust and understand the decisions.
